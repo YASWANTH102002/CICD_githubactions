@@ -17,7 +17,7 @@ spec:
       - name: swiggy
         image: yaswanth102002/git-docker-repo:latest
         ports:
-        - containerPort: 5000   # Use port 3000
+        - containerPort: 6000   # Use port 3000
 
 ---
 apiVersion: v1
@@ -30,5 +30,5 @@ spec:
   ports:
   - protocol: TCP
     port: 80                 # Expose port 80.
-    targetPort: 5000
+    targetPort: 6000
   type: LoadBalancer
