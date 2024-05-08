@@ -24,8 +24,8 @@ jobs:
       - name: Docker build and push
         run: |
           # Run commands to build and push Docker images
-          docker build -t swiggy-clone5 .
-          docker tag swiggy-clone5 yaswanth102002/git-docker-repo:latest
+          docker build -t swiggy-clone6 .
+          docker tag swiggy-clone6 yaswanth102002/git-docker-repo:latest
           docker login -u ${{ secrets.Dockerhub_username }} -p ${{ secrets.Dockerhub_token }}
           docker push yaswanth102002/git-docker-repo:latest
         env:
@@ -39,14 +39,9 @@ jobs:
       - name: Image scan
         run: trivy image yaswanth102002/git-docker-repo:latest > trivyimagedeploy.txt
       - name: Deploy to container
-        run: docker run -d --name swiggy-clone5 -p 5000:5000 yaswanth102002/git-docker-repo:latest
+        run: docker run -d --name swiggy-clone6 -p 5000:5000 yaswanth102002/git-docker-repo:latest
       - name: Update kubeconfig
         run: aws eks --region us-east-1 update-kubeconfig --name EKS_CLOUD
       - name: Deploy to kubernetes
-        run: kubectl apply -f deployment-service.yml
-      # If you wish to fail your job when the Quality Gate is red, uncomment the
-      # following lines. This would typically be used to fail a deployment.
-      # - uses: sonarsource/sonarqube-quality-gate-action@master
-      #   timeout-minutes: 5.
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: kubectl apply -f /home/ubuntu/gitclone/CICD_githubactions/deployment-service.yml
+     
